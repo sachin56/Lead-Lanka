@@ -10,7 +10,7 @@
 ## Run the project 
 
    ##  Clone the project
-      `git clone https://github.com/sachin56/Capricon-blog-app.git`
+      `git clone https://github.com/sachin56/Lead-Lanka.git`
 
    ## Run command   
       `docker compose up -d`
@@ -35,7 +35,7 @@
           DB_CONNECTION=mysql
           DB_HOST=db-bookmanagement
           DB_PORT=3306
-          DB_DATABASE=capricon
+          DB_DATABASE=book_management
           DB_USERNAME=root
           DB_PASSWORD=leadlanka#1234
           
