@@ -21,9 +21,10 @@ use Illuminate\Support\Facades\Route;
 
 //Admin Routes
 Route::prefix('admin')->group(function () {
-    Route::get('/login',[AdminController::class,'index'])->name('admin');
+    Route::get('/login',[AdminController::class,'index'])->name('admin.index');
     Route::post('/login/owner',[AdminController::class,'checklogin'])->name('admin.login');
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard')->middleware('admin');
+    Route::get('/logout',[AdminController::class,'adminlogout'])->name('admin.logout')->middleware('admin');
 });
 
 Route::get('/dashboard', function () {

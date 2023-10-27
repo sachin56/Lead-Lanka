@@ -9,14 +9,18 @@ class AdminController extends Controller
 {
     //display admin login
     public function index(){
-        return view('admin.auth.admin-login');
+        if(Auth::guard('admin')->check()){
+            return view('admin.admin-dashboard');
+        }else{
+            return view('admin.auth.admin-login');
+        }    
     }
 
     public function dashboard(){
         return view('admin.admin-dashboard');
     }
     
-    function checklogin(Request $request)
+    public function checklogin(Request $request)
     {
         $credentials = $request->validate([
             'email' => 'required|email',
@@ -35,5 +39,12 @@ class AdminController extends Controller
         ])->onlyInput('email');
 
     }
+
+    public function adminlogout(){
+        Auth::guard('admin')->logout();
+        return redirect()->route('admin.dashboard')
+                ->withSuccess('You have successfully logged in!');
+    }
+
 
 }
