@@ -1,0 +1,31 @@
+{
+	"info": {
+		"_postman_id": "bfc011b0-3e7d-450b-ad0e-6ebcbbda97c7",
+		"name": "Lead Lanka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27304962"
+	},
+	"item": [
+		{
+			"name": "All Books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5534/api/book/show",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5534",
+					"path": [
+						"api",
+						"book",
+						"show"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
