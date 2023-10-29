@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BookCatagoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,9 @@ Route::prefix('admin')->group(function () {
     Route::post('/login/owner',[AdminController::class,'checklogin'])->name('admin.login');
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard')->middleware('admin');
     Route::get('/logout',[AdminController::class,'adminlogout'])->name('admin.logout')->middleware('admin');
+
+    //book Category
+    Route::resource('/book-category',BookCatagoryController::class);
 });
 
 Route::get('/dashboard', function () {

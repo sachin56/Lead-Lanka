@@ -10,16 +10,20 @@
     <p style="color: #C2C7D0; font-size: 15px; padding-top:10px">&nbsp;Master</p>
 </li>
 
-<li class="nav-item">
-    <a href="" class="nav-link supplier_route">
-    <i class="fas fa-table"></i>
-        <p>&nbsp;Supplier</p>
-    </a>
-</li>
-<li class="nav-item">
-    <a href="" class="nav-link project_route">
-        <i class="fas fa-copy"></i>
-        <p>&nbsp;Project</p>
-    </a>
-</li>
+@role('Admin', 'admin')
+    <li class="nav-item">
+        <a href="" class="nav-link supplier_route">
+        <i class="fas fa-table"></i>
+            <p>&nbsp;Supplier</p>
+        </a>
+    </li>
+    
+    <li class="nav-item">
+        <a href="book-category" class="nav-link Category_route">
+        <i class="fas fa-table"></i>
+            <p>&nbsp;Book Category</p>
+        </a>
+    </li>
+@endrole
+
 
