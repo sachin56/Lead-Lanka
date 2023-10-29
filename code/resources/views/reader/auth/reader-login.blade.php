@@ -18,7 +18,7 @@
 <body class="hold-transition login-page" style="background-color:white">
 <div class="login-box">
     <div class="login-logo">
-        {{-- <img src="{{URL::asset('/images/logo.jpg')}}" height="100" width="150"> <br> --}}
+        <img src="{{URL::asset('../images/logo.jpg')}}" height="100" width="100"> <br>
         <a href=""><b style="font-size: 20px;">Reader Login</b></a>
     </div>
     <!-- /.login-logo -->
