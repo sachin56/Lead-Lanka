@@ -1,8 +1,8 @@
 
 @if (Auth::guard('admin')->check())
-@extends('layouts.admin.app')
+    @extends('layouts.admin.app')
 @else
-@extends('layouts.app')
+    @extends('layouts.app')
 @endif
 @section('content')
 <div class="modal fade" id="modal">
@@ -189,6 +189,36 @@ $(document).ready(function(){
         });
     });
 
+    $(document).on("click", ".read", function(){
+
+        var id = $(this).attr('data');
+
+        empty_form();
+        $("#hid").val(id);
+        $("#modal").modal('show');
+        $(".modal-title").html('Edit Category');
+        $("#submit").css("display","none");
+
+        $.ajax({
+            'type': 'ajax',
+            'dataType': 'json',
+            'method': 'get',
+            'url': 'book/'+id,
+            'async': false,
+            success: function(data){
+
+                $("#hid").val(data.id);
+                $("#book_name").val(data.book_name);
+                $("#auther_name").val(data.auther_name);
+                $("#stock").val(data.stock);
+                $("#category_type").val(data.category_type);
+                $("#description").val(data.description);
+                $("#assign_user").val(data.assign_user);
+            }
+
+        });
+    });
+
     $(document).on("click", ".edit", function(){
 
         var id = $(this).attr('data');
@@ -339,8 +369,11 @@ function show_Books(){
                     @role('Admin', 'admin')
                         html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"' title='Edit'><i class='fas fa-edit'></i></button>";
                         html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"' title='Delete'><i class='fas fa-trash'></i></button>";
+                    @elserole('Read','reader')
+                        html+="<td><button class='btn btn-success btn-sm read' data='"+d.id+"' title='Edit'><i class='fa-solid fa-book'></i></button>";
                     @else
                         html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"' title='Edit'><i class='fas fa-edit'></i></button>";
+                            html+="<td><button class='btn btn-success btn-sm read' data='"+d.id+"' title='Edit'><i class='fa-solid fa-book'></i></button>";
                     @endrole
                     return html;
 
@@ -353,8 +386,12 @@ function show_Books(){
 
 function empty_form(){
     $("#hid").val("");
-    $("#name").val("");
-    $("#code").val("");
+    $("#book_name").val("");
+    $("#auther_name").val("");
+    $("#stock").val("");
+    $("#category_type").val("");
+    $("#description").val("");
+    $("#assign_user").val("");
 }
 
 function validation_error(error){
