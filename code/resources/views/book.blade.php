@@ -89,9 +89,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <button class="btn btn-primary addNew"><i class="fa fa-plus"></i> Add New Book</button>
-                </div>
+                @role('Admin', 'admin')
+                    <div class="card-header">
+                        <button class="btn btn-primary addNew"><i class="fa fa-plus"></i> Add New Book</button>
+                    </div>
+                @endrole
                 <div class="card-body">
                     <table class="table table-bordered" id="tbl_book">
                         <thead>

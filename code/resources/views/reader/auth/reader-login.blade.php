@@ -12,14 +12,14 @@
           integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
           crossorigin="anonymous"/>
 
-    <link href="./css/app.css" rel="stylesheet">
+    <link href=".././css/app.css" rel="stylesheet">
 
 </head>
 <body class="hold-transition login-page" style="background-color:white">
 <div class="login-box">
     <div class="login-logo">
-    <img src="{{URL::asset('/images/logo.jpg')}}" height="100" width="150"> <br>
-        <a href="{{ url('/home') }}"><b style="font-size: 20px;">{{ config('app.name') }}</b></a>
+        {{-- <img src="{{URL::asset('/images/logo.jpg')}}" height="100" width="150"> <br> --}}
+        <a href=""><b style="font-size: 20px;">Reader Login</b></a>
     </div>
     <!-- /.login-logo -->
 
@@ -27,7 +27,7 @@
     <div class="card">
         <div class="card-body login-card-body">
 
-            <form method="post" action="{{ url('/login') }}">
+            <form method="post" action="{{ route('reader.login') }}">
                 @csrf
 
                 <div class="input-group mb-3">
@@ -40,7 +40,7 @@
                         <div class="input-group-text"><span class="fas fa-envelope"></span></div>
                     </div>
                     @error('email')
-                    <span class="error invalid-feedback">{{ $message }}</span>
+                        <span class="error invalid-feedback">{{ $message }}</span>
                     @enderror
                 </div>
 
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     @error('password')
-                    <span class="error invalid-feedback">{{ $message }}</span>
+                        <span class="error invalid-feedback">{{ $message }}</span>
                     @enderror
 
                 </div>
@@ -79,7 +79,7 @@
                 <a href="{{ route('password.request') }}">I forgot my password</a>
             </p>
             <p class="mb-0">
-                <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
+                <a href="{{ route('reader.registerindex') }}" class="text-center">Register a new membership</a>
             </p>
         </div>
         <!-- /.login-card-body -->
@@ -88,7 +88,7 @@
 </div>
 <!-- /.login-box -->
 
-<script src="./js/app.js" defer></script>
+<script src=".././js/app.js" defer></script>
 
 </body>
 </html>

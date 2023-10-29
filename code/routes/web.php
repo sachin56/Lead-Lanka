@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookCatagoryController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ReaderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,8 +39,6 @@ Route::prefix('admin')->group(function () {
 
     //book Category
     Route::resource('/book-category',BookCatagoryController::class);
-
-
 });
 
 Route::get('/dashboard', function () {
@@ -52,6 +51,24 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/book',[BookController::class,'index'])->name('book');
+    Route::get('/book/create', [BookController::class,'create']);
+    Route::get('/book/{id}', [BookController::class,'show']);
+    Route::put('/book/{id}', [BookController::class,'update']);
+});
+
+//Reader Routes
+Route::prefix('reader')->group(function () {
+    Route::get('/login',[ReaderController::class,'index'])->name('reader.index');
+    Route::post('/login/owner',[ReaderController::class,'checklogin'])->name('reader.login');
+
+    Route::get('/register',[ReaderController::class,'register_index'])->name('reader.registerindex');
+    Route::post('/register/create',[ReaderController::class,'register'])->name('reader.register');
+
+    Route::get('/dashboard',[ReaderController::class,'dashboard'])->name('reader.dashboard')->middleware('reader');
+    Route::get('/logout',[ReaderController::class,'readerlogout'])->name('reader.logout')->middleware('reader');
+
+    //master->book
     Route::get('/book',[BookController::class,'index'])->name('book');
     Route::get('/book/create', [BookController::class,'create']);
     Route::get('/book/{id}', [BookController::class,'show']);

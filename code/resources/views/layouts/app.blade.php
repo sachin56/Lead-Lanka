@@ -38,8 +38,10 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                     @if (Auth::guard('admin')->check())
                         <span class="d-none d-md-inline">{{Auth::guard('admin')->user()->name}}</span>
-                    @else
+                    @elseif(Auth::guard('web')->check())
                         <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                    @else
+                    <span class="d-none d-md-inline">{{Auth::guard('reader')->user()->name}}</span>
                     @endif
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
