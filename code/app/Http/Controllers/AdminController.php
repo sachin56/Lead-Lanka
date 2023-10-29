@@ -33,7 +33,6 @@ class AdminController extends Controller
             return redirect()->route('admin.dashboard')
                 ->withSuccess('You have successfully logged in!');
         }
-
         return back()->withErrors([
             'email' => 'Your provided credentials do not match in our records.',
         ])->onlyInput('email');

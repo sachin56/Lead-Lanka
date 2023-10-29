@@ -37,7 +37,11 @@
 
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                    <span class="d-none d-md-inline">{{Auth::guard('admin')->user()->name}}</span>
+                    @if (Auth::guard('admin')->check())
+                        <span class="d-none d-md-inline">{{Auth::guard('admin')->user()->name}}</span>
+                    @else
+                        <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                    @endif
                     <span class="d-none d-md-inline"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -77,15 +81,6 @@
 </div>
 
 <script src="../js/app.js" ></script>
-
-<script>
-    @if(Session::has('success'))
-    toastr.success("{{ Session::get('success') }}");
-    @endif
-    $(document).ready(function () {
-      bsCustomFileInput.init()
-    })
-  </script>
 
 @yield('third_party_scripts')
 

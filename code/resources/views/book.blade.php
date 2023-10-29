@@ -1,5 +1,9 @@
-@extends('layouts.admin.app')
 
+@if (Auth::guard('admin')->check())
+@extends('layouts.admin.app')
+@else
+@extends('layouts.app')
+@endif
 @section('content')
 <div class="modal fade" id="modal">
     <div class="modal-dialog modal-lg">
@@ -71,7 +75,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            <h1 class="m-0 text-dark">Book</h1>
+            <h1 class="m-0 text-dark" style="padding:center">Book</h1>
         </div>
         <div class="col-md-6">
             <ol class="breadcrumb float-sm-right">
@@ -329,8 +333,13 @@ function show_Books(){
                 data: null,
                 render: function(d){
                     var html = "";
-                    html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"' title='Edit'><i class='fas fa-edit'></i></button>";
-                    html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"' title='Delete'><i class='fas fa-trash'></i></button>";
+                    
+                    @role('Admin', 'admin')
+                        html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"' title='Edit'><i class='fas fa-edit'></i></button>";
+                        html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"' title='Delete'><i class='fas fa-trash'></i></button>";
+                    @else
+                        html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"' title='Edit'><i class='fas fa-edit'></i></button>";
+                    @endrole
                     return html;
 
                 }
