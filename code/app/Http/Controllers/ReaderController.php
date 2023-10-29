@@ -44,9 +44,9 @@ class ReaderController extends Controller
 
     }
 
-    public function adminlogout(){
+    public function readerlogout(){
         Auth::guard('reader')->logout();
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('reader.dashboard')
                 ->withSuccess('You have successfully logged in!');
     }
 
