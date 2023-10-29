@@ -5,6 +5,8 @@
     @extends('layouts.app')
 @endif
 @section('content')
+
+{{-- book add modal --}}
 <div class="modal fade" id="modal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -72,6 +74,47 @@
       </div>
     </div>
 </div>
+
+{{-- assign user modal --}}
+<div class="modal fade" id="modal_assign_book">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title-assign-book">Add Book Category</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="hid" name="hid">
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="rate">Book Name</label>
+                            <input type="text" class="form-control" id="bookname" name="bookname" placeholder="Enter Book Name" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="rate"> Add Assign User</label>
+                            <select name="assignuser" id="assignuser" class="form-control">
+                                <option value="" style="display: none" selected>Select Assign User</option>
+                                @foreach($user as $users)
+                                    <option value="{{ $users->id }}"> {{ $users->name }} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success submit_assign_book" id="submit_assign_book">Save changes</button>
+          </div>
+      </div>
+    </div>
+</div>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
@@ -216,6 +259,80 @@ $(document).ready(function(){
                 $("#assign_user").val(data.assign_user);
             }
 
+        });
+    });
+
+    $(document).on("click", ".assign_book", function(){
+
+        var id = $(this).attr('data');
+
+        empty_form();
+        $("#hid").val(id);
+        $("#modal_assign_book").modal('show');
+        $(".modal-title-assign-book").html('Assign User');
+        $("#submit_assign_book").html('Assign User');
+
+        $.ajax({
+            'type': 'ajax',
+            'dataType': 'json',
+            'method': 'get',
+            'url': 'book/'+id,
+            'async': false,
+            success: function(data){
+
+                $("#hid").val(data.id);
+                $("#bookname").val(data.book_name);
+            }
+
+        });
+
+        $("#submit_assign_book").click(function(){
+
+            if($("#hid").val() != ""){
+
+                var id = $("#hid").val();
+                var bookname =$("#bookname").val();
+                var assignuser =$("#assignuser").val();
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Update it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+
+                            $.ajax({
+                                'type': 'ajax',
+                                'dataType': 'json',
+                                'method': 'post',
+                                'data' : {id:id,bookname:bookname,assignuser:assignuser},
+                                'url': 'book/assign_book',
+                                'async': false,
+                                success:function(data){
+                                if(data.validation_error){
+                                    validation_error(data.validation_error);//if has validation error call this function
+                                    }
+
+                                    if(data.db_error){
+                                    db_error(data.db_error);
+                                    }
+
+                                    if(data.db_success){
+                                        toastr.success(data.db_success);
+                                    setTimeout(function(){
+                                        $("#modal_assign_book").modal('hide');
+                                        location.reload();
+                                    }, 1000);
+                                    }
+                                },
+                            });
+                        }
+                });
+            }
         });
     });
 
@@ -369,11 +486,13 @@ function show_Books(){
                     @role('Admin', 'admin')
                         html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"' title='Edit'><i class='fas fa-edit'></i></button>";
                         html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"' title='Delete'><i class='fas fa-trash'></i></button>";
+                        html+="&nbsp;<td><button class='btn btn-primary btn-sm assign_book' data='"+d.id+"' title='Edit'><i class='fa fa-user'></i></button>";
                     @elserole('Read','reader')
                         html+="<td><button class='btn btn-success btn-sm read' data='"+d.id+"' title='Edit'><i class='fa-solid fa-book'></i></button>";
                     @else
                         html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"' title='Edit'><i class='fas fa-edit'></i></button>";
-                            html+="<td><button class='btn btn-success btn-sm read' data='"+d.id+"' title='Edit'><i class='fa-solid fa-book'></i></button>";
+                        html+="&nbsp;<td><button class='btn btn-success btn-sm read' data='"+d.id+"' title='Edit'><i class='fa-solid fa-book'></i></button>";
+                        html+="&nbsp;<td><button class='btn btn-primary btn-sm assign_book' data='"+d.id+"' title='Edit'><i class='fa fa-user'></i></button>";
                     @endrole
                     return html;
 

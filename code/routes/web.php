@@ -32,6 +32,7 @@ Route::prefix('admin')->group(function () {
     //master->book
     Route::get('/book',[BookController::class,'index'])->name('book');
     Route::post('/book',[BookController::class,'store']);
+    Route::post('/book/assign_book',[BookController::class,'assignbook']);
     Route::get('/book/create', [BookController::class,'create']);
     Route::get('/book/{id}', [BookController::class,'show']);
     Route::put('/book/{id}', [BookController::class,'update']);

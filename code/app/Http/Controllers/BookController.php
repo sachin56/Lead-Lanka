@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\BookCategory;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use DataTables;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Book;
+use App\Models\User;
+use App\Models\BookCategory;
+use App\Models\BorrowedBook;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class BookController extends Controller
 {
@@ -125,5 +126,41 @@ class BookController extends Controller
         $result = Book::destroy($id);
 
         return response()->json($result);
+    }
+
+    public function assignbook(Request $request){
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'assignuser' => 'required',
+
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['validation_error' => $validator->errors()->all()]);
+        }else{
+            try{
+                DB::beginTransaction();
+
+                $type = new BorrowedBook;
+                $type->book_id = $request->id;
+                $type->user_id = $request->assignuser;
+
+                $type->save();
+
+                $result = Book::find($request->id);
+                $result->stock= $result->stock - 1;
+
+                $result->save();
+
+                DB::commit();
+                return response()->json(['db_success' => 'Book Assign']);
+
+            }catch(\Throwable $th){
+                DB::rollback();
+                throw $th;
+                return response()->json(['db_error' =>'Database Error'.$th]);
+            }
+
+        }
     }
 }

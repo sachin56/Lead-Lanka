@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BorrowedBook;
 use App\Models\Reader;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -22,7 +23,11 @@ class ReaderController extends Controller
     }
 
     public function dashboard(){
-        return view('reader.reader-dashboard');
+        $result = DB::table('borrowed_books')
+                    ->join('books','books.id','=','borrowed_books.book_id')
+                    ->select('books.book_name as bookname','books.auther_name')
+                    ->get();
+        return view('reader.reader-dashboard')->with(['result' => $result]);
     }
     
     public function checklogin(Request $request)
