@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookCatagoryController;
+use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,8 +28,18 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard')->middleware('admin');
     Route::get('/logout',[AdminController::class,'adminlogout'])->name('admin.logout')->middleware('admin');
 
+    //master->book
+    Route::get('/book',[BookController::class,'index'])->name('book');
+    Route::post('/book',[BookController::class,'store']);
+    Route::get('/book/create', [BookController::class,'create']);
+    Route::get('/book/{id}', [BookController::class,'show']);
+    Route::put('/book/{id}', [BookController::class,'update']);
+    Route::delete('/book/{id}', [BookController::class,'destroy']);
+
     //book Category
     Route::resource('/book-category',BookCatagoryController::class);
+
+
 });
 
 Route::get('/dashboard', function () {

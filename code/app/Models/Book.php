@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'assign_user','id');
+    }
+
+    public function category(){
+
+        return $this->belongsTo(BookCategory::class, 'category_type', 'id');
+
+    }
 }

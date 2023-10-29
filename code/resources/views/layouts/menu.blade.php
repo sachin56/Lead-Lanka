@@ -12,9 +12,9 @@
 
 @role('Admin', 'admin')
     <li class="nav-item">
-        <a href="" class="nav-link supplier_route">
+        <a href="book" class="nav-link book_route">
         <i class="fas fa-table"></i>
-            <p>&nbsp;Supplier</p>
+            <p>&nbsp;Book</p>
         </a>
     </li>
     
