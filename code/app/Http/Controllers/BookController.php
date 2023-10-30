@@ -28,9 +28,6 @@ class BookController extends Controller
                         ->addColumn('category_type', function(book $book){
                             return $book->category->book_type;
                         })
-                        ->addColumn('name', function(book $book){
-                            return $book->user->name;
-                        })
                         ->make(true);
 
     }

@@ -145,7 +145,6 @@
                                 <th style="width:20%">Book Name</th>
                                 <th style="width:20%">Book Auther Name</th>
                                 <th style="width:10%">Book Category</th>
-                                <th style="width:10%">Book Assign User</th>
                                 <th style="width:5%">Book Stock</th>
                                 <th style="width:20%">Action</th>
                             </tr>
@@ -476,24 +475,21 @@ function show_Books(){
                 {data: 'book_name'},
                 {data: 'auther_name'},
                 {data: 'category_type'},
-                {data: 'name'},
                 {data: 'stock'},
                 {
                 data: null,
                 render: function(d){
                     var html = "";
-                    
-                    @role('Admin', 'admin')
+                    @if (Auth::guard('admin')->check())
                         html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"' title='Edit'><i class='fas fa-edit'></i></button>";
                         html+="&nbsp;<button class='btn btn-danger btn-sm delete' data='"+d.id+"' title='Delete'><i class='fas fa-trash'></i></button>";
                         html+="&nbsp;<td><button class='btn btn-primary btn-sm assign_book' data='"+d.id+"' title='Edit'><i class='fa fa-user'></i></button>";
-                    @elserole('Read','reader')
+                    @elseif(Auth::guard('reader')->check())
                         html+="<td><button class='btn btn-success btn-sm read' data='"+d.id+"' title='Edit'><i class='fa-solid fa-book'></i></button>";
                     @else
                         html+="<td><button class='btn btn-warning btn-sm edit' data='"+d.id+"' title='Edit'><i class='fas fa-edit'></i></button>";
-                        html+="&nbsp;<td><button class='btn btn-success btn-sm read' data='"+d.id+"' title='Edit'><i class='fa-solid fa-book'></i></button>";
                         html+="&nbsp;<td><button class='btn btn-primary btn-sm assign_book' data='"+d.id+"' title='Edit'><i class='fa fa-user'></i></button>";
-                    @endrole
+                    @endif
                     return html;
 
                 }
