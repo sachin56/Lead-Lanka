@@ -1,6 +1,6 @@
-# Capricon Exam
-   - Starting time: 
-   - Completed time: 
+# Lead Lanka Exam
+   - Starting time: 26 th oct 2023
+   - Completed time: 30 th oct 2023
 
 ## This project includes 3 docker containers 
     1. Database > db-book-management
