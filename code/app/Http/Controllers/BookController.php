@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\User;
 use App\Models\BookCategory;
 use App\Models\BorrowedBook;
+use App\Models\Reader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +17,7 @@ class BookController extends Controller
     public function index()
     {
         $b_category = BookCategory::all();
-        $user = User::all();
+        $user = Reader::all();
         return view('book')->with(['b_category'=>$b_category,'user'=>$user]);
     }
 
