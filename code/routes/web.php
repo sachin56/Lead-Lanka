@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookCatagoryController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ReaderController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,9 @@ Route::prefix('admin')->group(function () {
 
     //book Category
     Route::resource('/book-category',BookCatagoryController::class);
+
+    //User
+    Route::resource('/user',UserController::class);
 });
 
 Route::get('/dashboard', function () {
