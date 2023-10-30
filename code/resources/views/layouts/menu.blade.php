@@ -24,6 +24,12 @@
                 <p>&nbsp;Book Category</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="user" class="nav-link user_route">
+            <i class="fas fa-table"></i>
+                <p>&nbsp;Staff User</p>
+            </a>
+        </li>
     @endrole
 
 

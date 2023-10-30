@@ -2,22 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\User;
+use App\Models\BookCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Reader;
 
 class AdminController extends Controller
 {
     //display admin login
     public function index(){
         if(Auth::guard('admin')->check()){
-            return view('admin.admin-dashboard');
+            $category = BookCategory::count();
+            $book = Book::count();
+            $staffuser = User::count();
+            $reader = Reader::count();
+            return view('admin.admin-dashboard')->with(['category'=>$category,'book'=>$book,'staffuser'=>$staffuser,'reader'=>$reader]);
         }else{
             return view('admin.auth.admin-login');
         }    
     }
 
     public function dashboard(){
-        return view('admin.admin-dashboard');
+        $category = BookCategory::count();
+        $book = Book::count();
+        $staffuser = User::count();
+        $reader = Reader::count();
+        return view('admin.admin-dashboard')->with(['category'=>$category,'book'=>$book,'staffuser'=>$staffuser,'reader'=>$reader]);
     }
     
     public function checklogin(Request $request)

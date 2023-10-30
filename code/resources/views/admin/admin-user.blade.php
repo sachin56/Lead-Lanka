@@ -62,7 +62,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-bordered" id="tbl_category">
+                    <table class="table table-bordered" id="tbl_user">
                         <thead>
                             <tr>
                                 <th style="width:20%">ID</th>
@@ -84,10 +84,10 @@
 $(document).ready(function(){
 
     // menu active
-    $(".Category_route").addClass('active');
-    $(".Category_tree").addClass('active');
-    $(".Category_tree_open").addClass('menu-open');
-    $(".Category_tree_open").addClass('menu-is-opening');
+    $(".user_route").addClass('active');
+    $(".user_tree").addClass('active');
+    $(".user_tree_open").addClass('menu-open');
+    $(".user_tree_open").addClass('menu-is-opening');
 
 
     //csrf token error
@@ -177,10 +177,10 @@ $(document).ready(function(){
 
 //Data Table show
 function show_Users(){
-        $('#tbl_category').DataTable().clear();
-        $('#tbl_category').DataTable().destroy();
+        $('#tbl_user').DataTable().clear();
+        $('#tbl_user').DataTable().destroy();
 
-        $("#tbl_category").DataTable({
+        $("#tbl_user").DataTable({
             'processing': true,
             'serverSide': true,
             "bLengthChange": false,
